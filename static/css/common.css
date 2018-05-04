@@ -1,0 +1,89 @@
+html, body {
+  height: 100%;
+  width: 100%;
+  cursor: default;
+  font-family: "Microsoft YaHei", "heiti sc";
+  margin: 0;
+  padding: 0;
+}
+#app{
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #000000;
+  position: relative;
+  padding-top: 80px;
+  height: 100%;
+  width: 100%；
+}
+header.app {
+  background: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+* {
+  font-family: "heiti sc", "Microsoft YaHei";
+}
+*,
+*:after,
+*:before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.text-left{
+  text-align: left;
+}
+.text-right{
+  text-align: right;
+}
+.text-center{
+  text-align: center;
+}
+.fl{
+  float: left;
+}
+.fr{
+  float: right;
+}
+
+.overEli{
+  width: 100%;
+  word-break: break-all;
+  white-space: nowrap !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.clear:before,
+.clear:after{display: table;content: " ";}
+.clear:after{clear: both;}
+
+.content{
+  height: 100%;
+  padding-left: 350px;
+  position: relative;
+  padding-right: 20px;
+}
+.lefttree{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  width: 330px;
+  background: #e1f0ff;
+  border-top-right-radius: 5px;
+}
+.markdown-body{
+  height: 100%;
+}
+.el-tree {
+  background: transparent;
+}
+.el-tree-node__content:hover,.el-tree-node:focus>.el-tree-node__content {
+  background-color: #62a1ff;
+  color: #ffffff;
+}
