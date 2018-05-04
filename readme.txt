@@ -8,7 +8,7 @@
 npm install axios -S
 安装elementui
 npm install element-ui -S
-
+npm install --save element-ui element-ui/lib/them-chalk/index.css
 4.使用express generator生成器生成后端服务框架
 命令：express server -e //-e为ejs模板，即html；-j为jade模板
 
