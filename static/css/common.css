@@ -87,3 +87,14 @@ header.app {
   background-color: #62a1ff;
   color: #ffffff;
 }
+.el-tree .custom-tree-node {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  padding-right: 8px;
+}
+.el-tree-node__content:hover .el-button--text,.el-tree-node:focus .el-button--text{
+  color: #ffffff;
+}

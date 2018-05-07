@@ -21,8 +21,11 @@ cd ../ 到项目根目录
 node server/bin/www  // 启动服务
 7.用浏览器访问 http://localhost:3000/#/ ，就可以看到express运行页面了
 8.在外面的package中配置"server": "node ./server/bin/www"方便运行服务
-***使用 npm run dev 、 npm run server 同时开启前端和服务端
+***使用 npm run dev 、 npm run server 同时开启前端和服务端（使用nodemon run 开启服务端，可以热更新）
 
+
+9.安装mongodb 
+ cnpm install mongodb
 
 
 github推送本地工程到github仓库
