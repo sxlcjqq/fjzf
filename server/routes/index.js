@@ -38,6 +38,10 @@ router.get('/register', function(req, res) {
 router.get('/List', function(req, res) {
     res.render('List', { title: 'register' });
 });
+/* users */
+router.get('/users', function(req, res) {
+    res.render('users', { title: 'users' });
+});
 
 /* 登陆 */
 router.post('/lotoList', function(req, res) {
@@ -68,12 +72,18 @@ router.post('/retoList', function(req, res) {
                 res.redirect('/register?repeat');
             }else{
               var newUser = new user(registers);
-
+              // update 和save详情查看 https://www.cnblogs.com/yu-zhang/p/5210966.html
+              //1.2save命令
+              // Mongodb另一个更新命令是save，格式如下：
+              // db.collection.save(obj)
+              // obj代表需要更新的对象，如果集合内部已经存在一个和obj相同的"_id"的记录，Mongodb会把obj对象替换集合内已存在的记录，如果不存在，则会插入obj对象。
+              // 这条命令比较简单，示例就省略了。
               newUser.save(function (err){
                   req.session.user=req.body.name;
                   req.session.userid=id;
                   res.redirect('List', { title:'List' });
               });
+              // (ObjectId)newUser.get( "_id" ); // 获取文档id--要试试可不可以
                 // user.create(registers, function(err, doc){
                 //     res.redirect('List', { title:'List' });
                 // });

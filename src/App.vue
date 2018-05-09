@@ -33,7 +33,17 @@
           default-expand-all
           :render-content="renderContent"
           :filter-node-method="filterNode"
-          ref="tree2">
+          ref="tree2"
+          @node-drag-start="handleDragStart"
+          @node-drag-enter="handleDragEnter"
+          @node-drag-leave="handleDragLeave"
+          @node-drag-over="handleDragOver"
+          @node-drag-end="handleDragEnd"
+          @node-drop="handleDrop"
+          draggable
+          :allow-drop="allowDrop"
+          :allow-drag="allowDrag"
+          >
         </el-tree>
       </div>
       <router-view/>
@@ -42,6 +52,7 @@
 </template>
 
 <script>
+var id = 100
 export default {
   name: 'App',
   created () {
@@ -70,26 +81,6 @@ export default {
             label: '三级 1-1-2'
           }]
         }]
-      }, {
-        id: 2,
-        label: '一级 2',
-        children: [{
-          id: 5,
-          label: '二级 2-1'
-        }, {
-          id: 6,
-          label: '二级 2-2'
-        }]
-      }, {
-        id: 3,
-        label: '一级 3',
-        children: [{
-          id: 7,
-          label: '二级 3-1'
-        }, {
-          id: 8,
-          label: '二级 3-2'
-        }]
       }],
       defaultProps: {
         children: 'children',
@@ -112,6 +103,24 @@ export default {
       }
       data.children.push(newChild)
     },
+    update (node, data) {
+      this.$prompt('请输入名称', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        inputPattern: /.{1,}/,
+        inputErrorMessage: '名称不能为空'
+      }).then(({ value }) => {
+        const parent = node.parent
+        const children = parent.data.children || parent.data
+        const index = children.findIndex(d => d.id === data.id)
+        children[index].label = value
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '取消修改'
+        })
+      })
+    },
     remove (node, data) {
       const parent = node.parent
       const children = parent.data.children || parent.data
@@ -123,10 +132,39 @@ export default {
         <span class="custom-tree-node">
           <span>{node.label}</span>
           <span>
-            <el-button size="mini" type="text" on-click={ () => this.append(data) }>添加</el-button>
-            <el-button size="mini" type="text" on-click={ () => this.remove(node, data) }>删除</el-button>
+            <el-button size="mini" type="text" on-click={ () => this.append(data) }>增</el-button>
+            <el-button size="mini" type="text" on-click={ () => this.update(node, data) }>改</el-button>
+            <el-button size="mini" type="text" on-click={ () => this.remove(node, data) }>删</el-button>
           </span>
         </span>)
+    },
+    handleDragStart (node, ev) {
+      console.log('drag start', node)
+    },
+    handleDragEnter (draggingNode, dropNode, ev) {
+      console.log('tree drag enter: ', dropNode.label)
+    },
+    handleDragLeave (draggingNode, dropNode, ev) {
+      console.log('tree drag leave: ', dropNode.label)
+    },
+    handleDragOver (draggingNode, dropNode, ev) {
+      console.log('tree drag over: ', dropNode.label)
+    },
+    handleDragEnd (draggingNode, dropNode, dropType, ev) {
+      console.log('tree drag end: ', this.data2)
+    },
+    handleDrop (draggingNode, dropNode, dropType, ev) {
+      console.log('tree drop: ', dropNode.label, dropType)
+    },
+    allowDrop (draggingNode, dropNode, type) {
+      if (dropNode.data.label === '二级 3-1') {
+        return type !== 'inner'
+      } else {
+        return true
+      }
+    },
+    allowDrag (draggingNode) {
+      return draggingNode.data.label.indexOf('三级 3-1-1') === -1
     }
   }
 }

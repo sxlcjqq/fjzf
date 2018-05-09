@@ -14,7 +14,7 @@ Vue.config.productionTip = false
 Vue.use(mavonEditor) // 编辑器
 Vue.use(ElementUI)
 
-axios.defaults.baseURL = 'http://192.168.1.101:8082'
+axios.defaults.baseURL = 'http://localhost:3000/'
 Vue.prototype.$http = axios
 
 // 拦截响应response，并做一些错误处理

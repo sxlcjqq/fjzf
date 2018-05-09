@@ -64,7 +64,14 @@ const devWebpackConfig = merge(baseWebpackConfig, {
         to: config.dev.assetsSubDirectory,
         ignore: ['.*']
       }
-    ])
+    ]),
+    // new CopyWebpackPlugin([{
+    //   from: 'src/static'
+    // }]),
+    new PrerenderSpaPlugin(
+      path.join(__dirname, 'dist'),
+      [ '/', '/editor']
+    )
   ]
 })
 

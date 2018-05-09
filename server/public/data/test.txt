@@ -1,0 +1,51 @@
+存储结构设计users
+```language
+{
+"_id":xxx,
+"username":'username', //唯一username
+"password":'xxx'
+}
+```
+存储结构设计contents
+```language
+{
+  '_id':'username'
+  "leaf": "A", // 唯一leaf，文档列表就是树列表
+  "name":'',
+  "children": [
+    {"leaf": "B", "children": [{"leaf": "D"}] },
+    {"leaf": "C"}
+   ]
+ }
+},
+{'_id':'A','name':'',content:''}
+```
+唯一数据的实现方式
+```language
+User = mongoose.model('User', new Schema({
+    firstName:  {
+        type:String,
+        required: true,
+    },
+    lastName: {
+        type:String,
+        required: true,
+    },
+    email: {
+        type:String,
+        required: true,
+        unique: true
+    },
+    address: String,
+    phone: {
+        type:String,
+        required: true,
+    },
+    password:  {
+        type:String,
+        required: true,
+        set: Data.prototype.saltySha1 // some function called before saving the data
+    },
+    role: String
+},{strict: true}));
+```

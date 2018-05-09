@@ -5,12 +5,47 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var ejs = require('ejs');
+let fs = require('fs'); // 访问静态文件
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var article = require('./routes/articles');
 
 var app = express();
+//设置跨域访问--start
+app.all('*', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With,content-type");
+    res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+    res.header("X-Powered-By",' 3.2.1')
+    res.header("Content-Type", "application/json;charset=utf-8");
+    next();
+});
+//设置跨域访问--end
 
+// 访问静态文件--start
+app.use(express.static(path.join(__dirname, './public')));
+app.all('/', function(req, res){
+  console.log("=======================================");
+  console.log("请求路径："+req.url);
+  var filename = req.url.split('/')[req.url.split('/').length-1];
+  var suffix = req.url.split('.')[req.url.split('.').length-1];
+  console.log("文件名：", filename);
+  if(req.url==='/'){
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    res.end(get_file_content(path.join(__dirname, 'html', 'index.html')));
+  }else if(suffix==='css'){
+    res.writeHead(200, {'Content-Type': 'text/css'});
+    res.end(get_file_content(path.join(__dirname, 'public', 'css', filename)));
+  }else if(suffix in ['gif', 'jpeg', 'jpg', 'png','txt']) {
+    res.writeHead(200, {'Content-Type': 'image/'+suffix});
+    res.end(get_file_content(path.join(__dirname, 'public', 'images', filename)));
+  }
+});
+function get_file_content(filepath){
+  return fs.readFileSync(filepath);
+}
+// 访问静态文件--end
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'ejs');
@@ -26,6 +61,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/article', article);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
