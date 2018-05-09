@@ -24,7 +24,7 @@ export default {
     // that.$http.get('/article/example').then(function (response) {
     //   console.log(response)
     // })
-    that.$http.get('/data/sql.txt').then(function (response) {
+    that.$http.get('/data/test.txt').then(function (response) {
       that.value = response.data
     })
   },

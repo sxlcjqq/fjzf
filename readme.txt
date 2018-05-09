@@ -66,3 +66,7 @@ db.types.getIndexes()
 db.types.dropIndex({"text":1})
 11--关闭mongodb服务
 db.shutdownServer()
+12--删除集合mycollection
+db.mycollection.drop()
+13--查看可用集合
+show collections
