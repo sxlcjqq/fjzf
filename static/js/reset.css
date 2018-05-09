@@ -1,0 +1,65 @@
+@charset "utf-8";
+/*css reset*/
+* html,* html body {
+    background-image: url(about:blank);
+    background-attachment: fixed;
+}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td,b {margin:0;padding:0;}
+table {border-collapse:collapse;border-spacing:0;}
+fieldset,img {border:0}
+address,caption,cite,code,dfn,em,strong,th,var,b {font-style:normal;font-weight:normal}
+ol,ul {list-style:none}
+caption,th {text-align:left}
+h1,h2,h3,h4,h5,h6 {font-size:100%;font-weight:normal}
+q:before,q:after {content:''}
+abbr,acronym,input { border:0}
+
+input[type=submit] {cursor: pointer;}
+
+select,input,button,textarea{font: normal normal normal 100%/normal Tahoma, Helvetica, Arial, sans-serif;}
+select{border: none;}
+select,input{
+    outline: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);   }
+/* float clear */
+.clear{clear:both;display:block;line-height:0;font-size:0;overflow:hidden;visibility:hidden;}
+.clearfix:after{clear:both;content:' ';display:block;font-size:0;line-height:0;visibility:hidden;width:0;height:0}
+.clearfix{*zoom:1}
+
+/* position */
+body {word-wrap:break-word;background-color: #FAFAFA;}
+.tl{text-align:left}
+.tc{text-align:center}
+.tr{text-align:right}
+.fl{float:left;display:inline}
+.fr{float:right;display:inline}
+.vm{vertical-align:middle}
+.pr{position:relative}
+.pa{position:absolute}
+.abs-right{position:absolute;right:0}
+.zoom{zoom:1}
+.hidden{visibility:hidden}
+.none{display:none}
+.oh {overflow: hidden;}
+
+/* fonts */
+body, button, input, select, textarea {font:14px/1.5 '微软雅黑',sans-serif;color:#666;}
+.f12{font-size:12px}
+.f13{font-size:13px}
+.f14{font-size:14px}
+.f16{font-size:16px}
+.f20{font-size:20px}
+.fb{font-weight:bold}
+.fn{font-weight:normal}
+.t2{text-indent:2em}
+.lh150{line-height:150%}
+.lh180{line-height:180%}
+.lh200{line-height:200%}
+.unl{text-decoration:underline;}
+.no_unl{text-decoration:none;}
+a,a:link,a:visited,a:active{text-decoration:none;cursor: pointer;outline-width: 0;}
+.h27{height: 27px;clear: both;font-size: 0;}
+.h40{height: 40px;clear: both;font-size: 0;}
+input{outline: none;}
+input::-ms-clear { display: none; }
+input::-ms-reveal { display: none; }

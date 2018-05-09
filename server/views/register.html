@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>my register</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+<h1>Hello World</h1>
+<p>Welcome to</p>
+<form action="retoList" method="post">
+    <p>
+        <span>name:</span>
+        <br>
+        <input id="name" name="name" type="text">
+    </p>
+    <p>
+        <span>password:</span>
+        <br>
+        <input id="password" name="password" type="password">
+    </p>
+    <p><input type="submit" value="submit"></p>
+</form>
+<script>
+  window.onload=function(){
+    if(document.location.href.split('?')[1] == 'repeat'){
+      alert('用户名已存在，请更换用户名！')
+    }
+  }
+</script>
+</body>
+</html>

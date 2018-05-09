@@ -29,6 +29,7 @@ node server/bin/www  // 启动服务
 
 
 github推送本地工程到github仓库
+0-rm -fr .git  #删除本地仓库.git
 1-git init                 # 本地仓库初始化，执行完后会在工程目录下生成一个.git的隐藏目录
 
 2-git add .               # 添加所有文件到本地索引，命令用法：git add <file>
@@ -39,3 +40,29 @@ github推送本地工程到github仓库
 
 
 5-git push origin master      # 按照前一条命令中origin给定的github地址推送到github仓库的master分支
+
+
+
+mongodb
+1--开启mongo服务
+命令：mongod
+2--再开一个终端，开启mongodb命令行
+命令：mongo
+3--查看所有库
+show dbs
+4--切换到某库（myList）
+use myList
+5--查看某张表（users）
+db.users.find()
+6--往表（users）中插入数据
+db.users.insert({“name”:“jqq”,“password”:“111”})
+7--从表（users）中删除数据 （justOne如果设为 true 或 1，则只删除一个文档。）
+db.users.remove({'name':'jqq'},{justOne:1})
+8--为表（types）设置索引（字段名为text，值为1为指定按升序创建索引，如果你想按降序来创建索引指定为-1即可）
+db.types.ensureIndex({“text”:1},{unique:true})
+9--查看表（types）索引
+db.types.getIndexes()
+10--删除表（types）索引
+db.types.dropIndex({"text":1})
+11--关闭mongodb服务
+db.shutdownServer()
