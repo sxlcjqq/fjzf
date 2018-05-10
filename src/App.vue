@@ -78,6 +78,7 @@ export default {
   name: 'App',
   created () {
     this.$router.push('editor')
+    this.getTree()
   },
   watch: {
     filterText (val) {
@@ -90,21 +91,7 @@ export default {
       activeIndex: '1', //
       centerDialogVisible: false, // 登录弹框
       filterText: '', // 关键字进行过滤
-      data2: [{
-        id: 1,
-        label: '一级 1',
-        children: [{
-          id: 4,
-          label: '二级 1-1',
-          children: [{
-            id: 9,
-            label: '三级 1-1-1'
-          }, {
-            id: 10,
-            label: '三级 1-1-2'
-          }]
-        }]
-      }],
+      data2: [],
       defaultProps: {
         children: 'children',
         label: 'label'
@@ -122,22 +109,40 @@ export default {
     }
   },
   methods: {
+    getTree () {
+      const that = this
+      that.$http.get('/article/searchTree').then(function (response) {
+        if (response.data.code === '200') {
+          that.data2 = response.data.list
+        }
+      })
+    },
     loginout () {
       const that = this
       that.$http.get('/article/loginout').then(function (response) {
-        that.loginname = false
-        sessionStorage.setItem('fjzflogin', false)
+        if (response.data.code === '200') {
+          that.loginname = false
+          sessionStorage.removeItem('fjzflogin')
+        }
       })
     },
     loginFun () {
       const that = this
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
-          console.log(this.ruleForm)
           that.$http.post('/article/login', this.ruleForm).then(function (response) {
-            sessionStorage.setItem('fjzflogin', 'jqq')
-            this.loginname = 'jqq'
-            this.centerDialogVisible = false
+            if (response.data.code === '200') {
+              console.log(that.ruleForm)
+              sessionStorage.setItem('fjzflogin', that.ruleForm.username)
+              that.loginname = that.ruleForm.username
+              that.centerDialogVisible = false
+              that.getTree()
+            } else {
+              that.$message({
+                type: 'info',
+                message: response.data.msg
+              })
+            }
           })
         } else {
           console.log('error submit!!')
@@ -147,7 +152,9 @@ export default {
     },
     showlogin () {
       this.centerDialogVisible = true
-      this.$refs.ruleForm.resetField()
+      if (this.$refs.ruleForm) {
+        this.$refs.ruleForm.resetField()
+      }
     },
     handleSelect (key, keyPath) {
     },
@@ -156,11 +163,24 @@ export default {
       return (data.label.indexOf(value) !== -1)
     },
     append (data) {
-      const newChild = { id: id++, label: 'testtest', children: [] }
-      if (!data.children) {
-        this.$set(data, 'children', [])
-      }
-      data.children.push(newChild)
+      this.$prompt('请输入名称', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        inputPattern: /.{1,}/,
+        inputErrorMessage: '名称不能为空'
+      }).then(({ value }) => {
+        const newChild = { id: id++, label: 'value', children: [] }
+        if (!data.children) {
+          this.$set(data, 'children', [])
+        }
+        data.children.push(newChild)
+        this.updateTreeFun()
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '取消添加'
+        })
+      })
     },
     addRootTree () {
       this.$prompt('请输入名称', '提示', {
@@ -174,6 +194,7 @@ export default {
           label: value,
           children: []
         })
+        this.updateTreeFun()
       }).catch(() => {
         this.$message({
           type: 'info',
@@ -204,6 +225,14 @@ export default {
       const children = parent.data.children || parent.data
       const index = children.findIndex(d => d.id === data.id)
       children.splice(index, 1)
+    },
+    updateTreeFun () {
+      const that = this
+      that.$http.post('/article/updateTree', {'content': this.data2}).then(function (response) {
+        if (response.data.code === '200') {
+
+        }
+      })
     },
     renderContent (h, { node, data, store }) {
       return (
