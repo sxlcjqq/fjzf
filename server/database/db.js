@@ -8,7 +8,10 @@ var userScheMa = new mongoose.Schema({
     unique: true //唯一username
   },
   password: String,
-  createTime: String
+  createTime: {
+    type: Date,
+    default: Date.now
+  }
 })
 var contentsScheMa = new mongoose.Schema({
   leaf: {
@@ -19,7 +22,11 @@ var contentsScheMa = new mongoose.Schema({
   createTime: String,
   updateTime: String,
   children: Array,
-  content: String
+  content: String,
+  createTime: {
+    type: Date,
+    default: Date.now
+  }
 }, {strict: true})
 exports.user = mongoose.model('users', userScheMa) //  与users集合关联
 exports.contents = mongoose.model('contents', contentsScheMa) //  与contents集合关联

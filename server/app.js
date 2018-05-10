@@ -7,11 +7,31 @@ var bodyParser = require('body-parser');
 var ejs = require('ejs');
 let fs = require('fs'); // 访问静态文件
 
+var app = express();
+
+// 加入mongo
+var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
+var settings = require('./setting.js');
+
+//JSON处理
+var bodyParser = require('body-parser');
+
+// 加入接口处理文件
 var index = require('./routes/index');
 var users = require('./routes/users');
 var article = require('./routes/articles');
 
-var app = express();
+// 设置session
+app.use(session({
+  secret: settings.cookieSecret,
+  key: settings.db,
+  cookie: {maxAge:1000*60*60*24*30},
+  store: new MongoStore({db:settings.db}),
+  resave: false,
+  saveUninitialized: true
+}));
+
 //设置跨域访问--start
 app.all('*', function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -46,10 +66,11 @@ function get_file_content(filepath){
   return fs.readFileSync(filepath);
 }
 // 访问静态文件--end
+//
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'ejs');
-app.engine('.html', ejs.__express);app.set('view engine', 'html');
+app.set('view engine', 'html');
+app.engine('.html', ejs.__express);
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));

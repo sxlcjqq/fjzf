@@ -16,7 +16,6 @@ function md5Encrypt(encryptString) {
 }
 /* GET home page. */
 router.get('/', function(req, res) {
-
   req.session.destroy(function(err){
       if(err) console.log("session销毁失败.");
       else {

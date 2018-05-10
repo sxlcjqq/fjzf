@@ -2,21 +2,22 @@
   <div id="app">
     <header class="app">
       <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+        <el-button type="primary" v-if="!loginname" size="small" plain class="fr" style="margin-top:15px;margin-right:15px;" @click="showlogin">登录/注册</el-button>
+        <el-button type="primary" v-if="loginname" size="small" plain class="fr" style="margin-top:15px;margin-right:15px;" @click="loginout">退出登录</el-button>
+        <el-button type="primary" v-if="loginname" size="small" plain class="fr" style="margin-top:15px;margin-right:15px;">{{loginname}}</el-button>
         <el-menu-item index="1">我的笔记</el-menu-item>
-        <el-submenu index="2" disabled>
+        <el-submenu index="3" disabled>
           <template slot="title">我的工作台</template>
-          <el-menu-item index="2-1">选项1</el-menu-item>
-          <el-menu-item index="2-2">选项2</el-menu-item>
-          <el-menu-item index="2-3">选项3</el-menu-item>
-          <el-submenu index="2-4">
+          <el-menu-item index="3-1">选项1</el-menu-item>
+          <el-menu-item index="3-2">选项2</el-menu-item>
+          <el-menu-item index="3-3">选项3</el-menu-item>
+          <el-submenu index="3-4">
             <template slot="title">选项4</template>
-            <el-menu-item index="2-4-1">选项1</el-menu-item>
-            <el-menu-item index="2-4-2">选项2</el-menu-item>
-            <el-menu-item index="2-4-3">选项3</el-menu-item>
+            <el-menu-item index="3-4-1">选项1</el-menu-item>
+            <el-menu-item index="3-4-2">选项2</el-menu-item>
+            <el-menu-item index="3-4-3">选项3</el-menu-item>
           </el-submenu>
         </el-submenu>
-        <el-menu-item index="3" disabled>消息中心</el-menu-item>
-        <el-menu-item index="4" disabled><a href="https://www.ele.me" target="_blank">订单管理</a></el-menu-item>
       </el-menu>
     </header>
     <div class="content">
@@ -25,6 +26,8 @@
           placeholder="输入关键字进行过滤"
           v-model="filterText">
         </el-input>
+
+        <el-button type="primary" size="mini" style="margin-bottom:10px;margin-top:10px;" @click="addRootTree">添加根节点</el-button>
 
         <el-tree
           class="filter-tree"
@@ -48,6 +51,24 @@
       </div>
       <router-view/>
     </div>
+    <el-dialog
+      title="登录/注册"
+      :visible.sync="centerDialogVisible"
+      width="400px"
+      center>
+      <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="130px" class="demo-ruleForm">
+        <el-form-item label="用户名（唯一）" prop="username">
+          <el-input v-model="ruleForm.username"></el-input>
+        </el-form-item>
+        <el-form-item label="密码" prop="password">
+          <el-input v-model="ruleForm.password" type="password"></el-input>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="centerDialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="loginFun">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -65,7 +86,9 @@ export default {
   },
   data () {
     return {
+      loginname: sessionStorage.getItem('fjzflogin'),
       activeIndex: '1', //
+      centerDialogVisible: false, // 登录弹框
       filterText: '', // 关键字进行过滤
       data2: [{
         id: 1,
@@ -85,12 +108,48 @@ export default {
       defaultProps: {
         children: 'children',
         label: 'label'
+      },
+      ruleForm: {
+        username: '',
+        password: ''
+      },
+      rules: {
+        username: [
+          { required: true, message: '请输入用户名', trigger: 'change' },
+          { required: true, message: '请输入密码', trigger: 'change' }
+        ]
       }
     }
   },
   methods: {
+    loginout () {
+      const that = this
+      that.$http.get('/article/loginout').then(function (response) {
+        that.loginname = false
+        sessionStorage.setItem('fjzflogin', false)
+      })
+    },
+    loginFun () {
+      const that = this
+      this.$refs.ruleForm.validate((valid) => {
+        if (valid) {
+          console.log(this.ruleForm)
+          that.$http.post('/article/login', this.ruleForm).then(function (response) {
+            sessionStorage.setItem('fjzflogin', 'jqq')
+            this.loginname = 'jqq'
+            this.centerDialogVisible = false
+          })
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
+    },
+    showlogin () {
+      this.centerDialogVisible = true
+      this.$refs.ruleForm.resetField()
+    },
     handleSelect (key, keyPath) {
-      console.log(key, keyPath)
     },
     filterNode (value, data) {
       if (!value) return true
@@ -102,6 +161,25 @@ export default {
         this.$set(data, 'children', [])
       }
       data.children.push(newChild)
+    },
+    addRootTree () {
+      this.$prompt('请输入名称', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        inputPattern: /.{1,}/,
+        inputErrorMessage: '名称不能为空'
+      }).then(({ value }) => {
+        this.data2.push({
+          id: 100,
+          label: value,
+          children: []
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '取消添加'
+        })
+      })
     },
     update (node, data) {
       this.$prompt('请输入名称', '提示', {
