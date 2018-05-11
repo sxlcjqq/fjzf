@@ -14,6 +14,7 @@ Vue.config.productionTip = false
 Vue.use(mavonEditor) // 编辑器
 Vue.use(ElementUI)
 
+axios.defaults.withCredentials = true // 设置后服务器才能跨域保存session
 axios.defaults.baseURL = 'http://localhost:3000/'
 Vue.prototype.$http = axios
 

@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var db = mongoose.connect("mongodb://localhost/myList");//；连接数据库
+// var db = mongoose.connect("mongodb://localhost/myList");//；连接数据库
 var Schema = mongoose.Schema;   //  创建模型
 var userScheMa = new mongoose.Schema({
   username: {
