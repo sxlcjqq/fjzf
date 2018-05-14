@@ -22,7 +22,8 @@ var article = require('./routes/articles');
 
 //设置跨域访问--start
 app.all('*', function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*")
+  res.header("Access-Control-Allow-Origin", "http://127.0.0.1:8080")
+  res.header("Access-Control-Allow-Credentials", "true")
   res.header("Access-Control-Allow-Headers", "X-Requested-With,content-type")
   res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS")
   res.header("X-Powered-By",' 3.2.1')
@@ -72,7 +73,11 @@ app.use(session({
   secret: settings.cookieSecret,
   key: settings.db,
   cookie: {maxAge: 1000 * 60 * 60 * 24 * 30},
-  store: new MongoStore({db: settings.db}),
+  store: new MongoStore({
+    // db: settings.db,
+    // host: settings.host,
+    url: settings.url
+  }),
   resave: false,
   saveUninitialized: true
 }))

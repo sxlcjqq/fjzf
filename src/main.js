@@ -15,8 +15,24 @@ Vue.use(mavonEditor) // 编辑器
 Vue.use(ElementUI)
 
 axios.defaults.withCredentials = true // 设置后服务器才能跨域保存session
-axios.defaults.baseURL = 'http://localhost:3000/'
+axios.defaults.baseURL = 'http://127.0.0.1:3000/'
 Vue.prototype.$http = axios
+
+// 请求拦截（配置发送请求的信息）
+axios.interceptors.request.use(function (config) {
+  // 处理请求之前的配置、
+  if (config.url !== '/article/login' && !sessionStorage.getItem('fjzflogin')) {
+    Vue.prototype.$message({
+      type: 'error',
+      message: '请先登录！'
+    })
+  } else {
+    return config
+  }
+}, function (error) {
+  // 请求失败的处理
+  return Promise.reject(error)
+})
 
 // 拦截响应response，并做一些错误处理
 axios.interceptors.response.use((response) => {
