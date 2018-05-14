@@ -122,7 +122,7 @@ export default {
       that.$http.get('/article/loginout').then(function (response) {
         if (response.data.code === '200') {
           that.loginname = false
-          sessionStorage.removeItem('fjzflogin')
+          sessionStorage.clear('fjzflogin')
         }
       })
     },
