@@ -15,6 +15,7 @@ Vue.use(mavonEditor) // 编辑器
 Vue.use(ElementUI)
 
 axios.defaults.baseURL = 'http://localhost:3000/'
+axios.defaults.withCredentials = true
 Vue.prototype.$http = axios
 
 // 拦截响应response，并做一些错误处理

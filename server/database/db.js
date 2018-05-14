@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var db = mongoose.connect("mongodb://localhost/myList");//；连接数据库
 var Schema = mongoose.Schema;   //  创建模型
 var userScheMa = new mongoose.Schema({
+  userid: Schema.Types.ObjectId,
   username: {
     type: String,
     required: true,
@@ -14,15 +15,16 @@ var userScheMa = new mongoose.Schema({
   }
 })
 var contentsScheMa = new mongoose.Schema({
-  leaf: {
-    type: String,
-    unique: true // 唯一leaf，文档列表就是树列表
-  },
+  // leaf: {
+  //   type: String,
+  //   unique: true // 唯一leaf，文档列表就是树列表
+  // },
   name: String,
-  createTime: String,
-  updateTime: String,
-  children: Array,
-  content: String,
+  updateTime: {
+    type: Date,
+    default: Date.now
+  },
+  content: Schema.Types.Mixed,
   createTime: {
     type: Date,
     default: Date.now

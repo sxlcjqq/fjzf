@@ -113,7 +113,7 @@ export default {
       const that = this
       that.$http.get('/article/searchTree').then(function (response) {
         if (response.data.code === '200') {
-          that.data2 = response.data.list
+          that.data2 = response.data.list[0].content ? response.data.list[0].content : []
         }
       })
     },
@@ -169,7 +169,7 @@ export default {
         inputPattern: /.{1,}/,
         inputErrorMessage: '名称不能为空'
       }).then(({ value }) => {
-        const newChild = { id: id++, label: 'value', children: [] }
+        const newChild = { id: id++, label: value, children: [] }
         if (!data.children) {
           this.$set(data, 'children', [])
         }

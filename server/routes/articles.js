@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var user = require('../database/db').user;
 var contents = require('../database/db').contents;
+var mongoose = require('mongoose');
 let fs = require('fs');
 let path = require('path');
 //获取当前时间
@@ -62,7 +63,7 @@ var query = {username: req.body.username, password: md5Encrypt(req.body.password
         if (doc[0].password == query.password) {
           console.log(query.username + ": 登陆成功 " + new Date());
           req.session.user = query.username;
-          req.session.userid = doc[0]._id;
+          req.session.userid = doc[0].userid;
           console.log('登陆成功' + req.session.user)
           responseJSON(res, {
             code: '200',
@@ -75,12 +76,13 @@ var query = {username: req.body.username, password: md5Encrypt(req.body.password
           })
         }
       } else {
+        query.userid =  new mongoose.Types.ObjectId()
         var newUser = new user(query);
         newUser.save(function (err){
           if(!err){
             console.log(query.username + ": 注册并登陆成功 " + new Date());
             req.session.user = query.username
-            req.session.userid = newUser.get('_id')
+            req.session.userid = query.userid
 
             console.log('注册并登陆成功' + req.session)
             responseJSON(res, {
@@ -109,19 +111,18 @@ router.get('/searchTree', function(req, res) {
   console.log(req.session)
   console.log('查询用户文档树userid:' + req.session.userid)
   console.log('查询用户文档树id:' + req.session.id)
-  contents.find({'_id': req.session.user}, function(err, doc1){
+  contents.find({'_id': req.session.userid}, function(err, doc1){
     responseJSON(res, {
       code: '200',
-      list: doc1,
+      list: (doc1 ? doc1 : []),
       msg: '成功～'
     })
   })
 })
 // 设置用户文档树
 router.post('/updateTree', function(req, res) {
-  console.log('设置用户文档树' + req.session)
-  var typesSingle = {'_id': req.session.user, 'content': req.body.content}
-  console.log(typesSingle)
+  console.log('设置用户文档树' + req.body.content.children)
+  var typesSingle = {'_id': req.session.userid, 'name': req.session.user, 'content': req.body.content}
   var newContents = new contents(typesSingle)
   newContents.save(function (err){
     responseJSON(res, {
