@@ -1,72 +1,76 @@
-1.±¾ÏîÄ¿Éæ¼° node + express + mongodb + sass + markdown + vue + webpack ¶àÒ³Ãæ´ò°ü + elementui
-2.Ê×ÏÈ£¬Ê¹ÓÃvuejs´´½¨Ò»¸ö´øwebpackµÄÏîÄ¿
- ´´½¨ÃüÁî£º vue init webpack fjzf
-3.½øÈëÏîÄ¿£¬°²×°ÒÀÀµ
-ÃüÁî£º npm install
+1.æœ¬é¡¹ç›®æ¶‰åŠ node + express + mongodb + sass + markdown + vue + webpack å¤šé¡µé¢æ‰“åŒ… + elementui
+2.é¦–å…ˆï¼Œä½¿ç”¨vuejsåˆ›å»ºä¸€ä¸ªå¸¦webpackçš„é¡¹ç›®
+ åˆ›å»ºå‘½ä»¤ï¼š vue init webpack fjzf
+3.è¿›å…¥é¡¹ç›®ï¼Œå®‰è£…ä¾èµ–
+å‘½ä»¤ï¼š npm install
 
-°²×°axios
+å®‰è£…axios
 npm install axios -S
-°²×°elementui
+å®‰è£…elementui
 npm install element-ui -S
 npm install --save element-ui element-ui/lib/them-chalk/index.css
-4.Ê¹ÓÃexpress generatorÉú³ÉÆ÷Éú³Éºó¶Ë·şÎñ¿ò¼Ü
-ÃüÁî£ºexpress server -e //-eÎªejsÄ£°å£¬¼´html£»-jÎªjadeÄ£°å
+4.ä½¿ç”¨express generatorç”Ÿæˆå™¨ç”Ÿæˆåç«¯æœåŠ¡æ¡†æ¶
+å‘½ä»¤ï¼šexpress server -e //-eä¸ºejsæ¨¡æ¿ï¼Œå³htmlï¼›-jä¸ºjadeæ¨¡æ¿
 
-    ´ò¿ªView ÎÄ¼ş·¢ÏÖindex.ejs±È½Ï²»Ï°¹ß£¬ËùÒÔ¶Ôapp.js½øĞĞĞ¡¸Ä¶¯£º
-¡°app.set('view engine', 'ejs');¡± ±ä³É ¡°app.engine('.html', ejs.__express);app.set('view engine', 'html');¡±
-ÉÏÒ»ĞĞ³öÏÖµÄejs±äÁ¿ĞèÒªrequire ejsÄ£¿é£¬Ôö¼Ó´úÂë¡°var ejs = require('ejs');¡±
-5.½øÈëÉú³ÉµÄserverÄ¿Â¼£¬Ê¹ÓÃnpm i ÃüÁî°²×°expressµÄÒÀÀµ
-6.ÔËĞĞexpress£º
-cd ../ µ½ÏîÄ¿¸ùÄ¿Â¼
-node server/bin/www  // Æô¶¯·şÎñ
-7.ÓÃä¯ÀÀÆ÷·ÃÎÊ http://localhost:3000/#/ £¬¾Í¿ÉÒÔ¿´µ½expressÔËĞĞÒ³ÃæÁË
-8.ÔÚÍâÃæµÄpackageÖĞÅäÖÃ"server": "node ./server/bin/www"·½±ãÔËĞĞ·şÎñ
-***Ê¹ÓÃ npm run dev ¡¢ npm run server Í¬Ê±¿ªÆôÇ°¶ËºÍ·şÎñ¶Ë£¨Ê¹ÓÃnodemon run ¿ªÆô·şÎñ¶Ë£¬¿ÉÒÔÈÈ¸üĞÂ£©
+    æ‰“å¼€View æ–‡ä»¶å‘ç°index.ejsæ¯”è¾ƒä¸ä¹ æƒ¯ï¼Œæ‰€ä»¥å¯¹app.jsè¿›è¡Œå°æ”¹åŠ¨ï¼š
+â€œapp.set('view engine', 'ejs');â€ å˜æˆ â€œapp.engine('.html', ejs.__express);app.set('view engine', 'html');â€
+ä¸Šä¸€è¡Œå‡ºç°çš„ejså˜é‡éœ€è¦require ejsæ¨¡å—ï¼Œå¢åŠ ä»£ç â€œvar ejs = require('ejs');â€
+5.è¿›å…¥ç”Ÿæˆçš„serverç›®å½•ï¼Œä½¿ç”¨npm i å‘½ä»¤å®‰è£…expressçš„ä¾èµ–
+6.è¿è¡Œexpressï¼š
+cd ../ åˆ°é¡¹ç›®æ ¹ç›®å½•
+node server/bin/www  // å¯åŠ¨æœåŠ¡
+7.ç”¨æµè§ˆå™¨è®¿é—® http://localhost:3000/#/ ï¼Œå°±å¯ä»¥çœ‹åˆ°expressè¿è¡Œé¡µé¢äº†
+8.åœ¨å¤–é¢çš„packageä¸­é…ç½®"server": "node ./server/bin/www"æ–¹ä¾¿è¿è¡ŒæœåŠ¡
+***ä½¿ç”¨ npm run dev ã€ npm run server åŒæ—¶å¼€å¯å‰ç«¯å’ŒæœåŠ¡ç«¯ï¼ˆä½¿ç”¨nodemon run å¼€å¯æœåŠ¡ç«¯ï¼Œå¯ä»¥çƒ­æ›´æ–°ï¼‰
 
 
-9.°²×°mongodb 
+9.å®‰è£…mongodb
  cnpm install mongodb
 
 
-githubÍÆËÍ±¾µØ¹¤³Ìµ½github²Ö¿â
-0-rm -fr .git  #É¾³ı±¾µØ²Ö¿â.git
-1-git init                 # ±¾µØ²Ö¿â³õÊ¼»¯£¬Ö´ĞĞÍêºó»áÔÚ¹¤³ÌÄ¿Â¼ÏÂÉú³ÉÒ»¸ö.gitµÄÒş²ØÄ¿Â¼
+githubæ¨é€æœ¬åœ°å·¥ç¨‹åˆ°githubä»“åº“
+0-rm -fr .git  #åˆ é™¤æœ¬åœ°ä»“åº“.git
+1-git init                 # æœ¬åœ°ä»“åº“åˆå§‹åŒ–ï¼Œæ‰§è¡Œå®Œåä¼šåœ¨å·¥ç¨‹ç›®å½•ä¸‹ç”Ÿæˆä¸€ä¸ª.gitçš„éšè—ç›®å½•
 
-2-git add .               # Ìí¼ÓËùÓĞÎÄ¼şµ½±¾µØË÷Òı£¬ÃüÁîÓÃ·¨£ºgit add <file>
+2-git add .               # æ·»åŠ æ‰€æœ‰æ–‡ä»¶åˆ°æœ¬åœ°ç´¢å¼•ï¼Œå‘½ä»¤ç”¨æ³•ï¼šgit add <file>
 
-3-git commit -m "My first commit operation"   # Ìá½»ĞŞ¸Äµ½±¾µØ²Ö¿â£¬-mÑ¡ÏîÌí¼ÓÌá½»×¢ÊÍ
+3-git commit -m "My first commit operation"   # æäº¤ä¿®æ”¹åˆ°æœ¬åœ°ä»“åº“ï¼Œ-mé€‰é¡¹æ·»åŠ æäº¤æ³¨é‡Š
 
-4-git remote add origin git@github.com:mayouchen123/learngit.git   # Ìí¼ÓÔ¶³Ì²Ö¿âµØÖ·£¬±£´æÔÚorigin±äÁ¿ÖĞ
+4-git remote add origin git@github.com:mayouchen123/learngit.git   # æ·»åŠ è¿œç¨‹ä»“åº“åœ°å€ï¼Œä¿å­˜åœ¨originå˜é‡ä¸­
 
 
-5-git push origin master      # °´ÕÕÇ°Ò»ÌõÃüÁîÖĞorigin¸ø¶¨µÄgithubµØÖ·ÍÆËÍµ½github²Ö¿âµÄmaster·ÖÖ§
+5-git push origin master      # æŒ‰ç…§å‰ä¸€æ¡å‘½ä»¤ä¸­originç»™å®šçš„githubåœ°å€æ¨é€åˆ°githubä»“åº“çš„masteråˆ†æ”¯
 
 
 
 mongodb
-1--¿ªÆômongo·şÎñ
-ÃüÁî£ºmongod
-2--ÔÙ¿ªÒ»¸öÖÕ¶Ë£¬¿ªÆômongodbÃüÁîĞĞ
-ÃüÁî£ºmongo
-3--²é¿´ËùÓĞ¿â
+1--å¼€å¯mongoæœåŠ¡
+å‘½ä»¤ï¼šmongod
+2--å†å¼€ä¸€ä¸ªç»ˆç«¯ï¼Œå¼€å¯mongodbå‘½ä»¤è¡Œ
+å‘½ä»¤ï¼šmongo
+3--æŸ¥çœ‹æ‰€æœ‰åº“
 show dbs
-4--ÇĞ»»µ½Ä³¿â£¨myList£©
+4--åˆ‡æ¢åˆ°æŸåº“ï¼ˆmyListï¼‰
 use myList
-5--²é¿´Ä³ÕÅ±í£¨users£©
+5--æŸ¥çœ‹æŸå¼ è¡¨ï¼ˆusersï¼‰
 db.users.find()
-6--Íù±í£¨users£©ÖĞ²åÈëÊı¾İ
-db.users.insert({¡°name¡±:¡°jqq¡±,¡°password¡±:¡°111¡±})
-7--´Ó±í£¨users£©ÖĞÉ¾³ıÊı¾İ £¨justOneÈç¹ûÉèÎª true »ò 1£¬ÔòÖ»É¾³ıÒ»¸öÎÄµµ¡££©
+6--å¾€è¡¨ï¼ˆusersï¼‰ä¸­æ’å…¥æ•°æ®
+db.users.insert({â€œnameâ€:â€œjqqâ€,â€œpasswordâ€:â€œ111â€})
+7--ä»è¡¨ï¼ˆusersï¼‰ä¸­åˆ é™¤æ•°æ® ï¼ˆjustOneå¦‚æœè®¾ä¸º true æˆ– 1ï¼Œåˆ™åªåˆ é™¤ä¸€ä¸ªæ–‡æ¡£ã€‚ï¼‰
 db.users.remove({'name':'jqq'},{justOne:1})
-8--Îª±í£¨types£©ÉèÖÃË÷Òı£¨×Ö¶ÎÃûÎªtext£¬ÖµÎª1ÎªÖ¸¶¨°´ÉıĞò´´½¨Ë÷Òı£¬Èç¹ûÄãÏë°´½µĞòÀ´´´½¨Ë÷ÒıÖ¸¶¨Îª-1¼´¿É£©
-db.types.ensureIndex({¡°text¡±:1},{unique:true})
-9--²é¿´±í£¨types£©Ë÷Òı
+8--ä¸ºè¡¨ï¼ˆtypesï¼‰è®¾ç½®ç´¢å¼•ï¼ˆå­—æ®µåä¸ºtextï¼Œå€¼ä¸º1ä¸ºæŒ‡å®šæŒ‰å‡åºåˆ›å»ºç´¢å¼•ï¼Œå¦‚æœä½ æƒ³æŒ‰é™åºæ¥åˆ›å»ºç´¢å¼•æŒ‡å®šä¸º-1å³å¯ï¼‰
+db.types.ensureIndex({â€œtextâ€:1},{unique:true})
+9--æŸ¥çœ‹è¡¨ï¼ˆtypesï¼‰ç´¢å¼•
 db.types.getIndexes()
-10--É¾³ı±í£¨types£©Ë÷Òı
+10--åˆ é™¤è¡¨ï¼ˆtypesï¼‰ç´¢å¼•
 db.types.dropIndex({"text":1})
-11--¹Ø±Õmongodb·şÎñ
+11--å…³é—­mongodbæœåŠ¡
 db.shutdownServer()
-12--É¾³ı¼¯ºÏmycollection
+12--åˆ é™¤é›†åˆmycollection
 db.mycollection.drop()
-13--²é¿´¿ÉÓÃ¼¯ºÏ
+13--æŸ¥çœ‹å¯ç”¨é›†åˆ
 show collections
+
+
+
+ç™»é™†éªŒè¯ã€‚æ¯ä¸ªæ¥å£çš„ç™»é™†éªŒè¯è¿˜æ²¡åšã€‚ã€‚ã€‚ã€‚ã€‚
