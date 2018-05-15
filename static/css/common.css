@@ -63,7 +63,7 @@ header.app {
 
 .content{
   height: 100%;
-  padding-left: 350px;
+  padding-left: 20px;
   position: relative;
   padding-right: 20px;
 }
@@ -95,6 +95,10 @@ header.app {
   font-size: 14px;
   padding-right: 8px;
 }
-.el-tree-node__content:hover .el-button--text,.el-tree-node:focus .el-button--text{
+.el-tree-node__content:hover .el-button--text,.el-tree-node:focus .el-button--text,.el-tree-node.is-current .el-button--text{
+  color: #ffffff;
+}
+.el-tree-node.is-current>.el-tree-node__content {
+  background-color: #62a1ff;
   color: #ffffff;
 }

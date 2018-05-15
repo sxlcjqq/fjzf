@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var user = require('../database/db').user;
+var tree = require('../database/db').tree
 var contents = require('../database/db').contents;
 var mongoose = require('mongoose');
 let fs = require('fs');
@@ -111,7 +112,7 @@ router.get('/searchTree', function(req, res) {
   console.log(req.session)
   console.log('查询用户文档树userid:' + req.session.userid)
   console.log('查询用户文档树id:' + req.session.id)
-  contents.find({'_id': req.session.userid}, function(err, doc1){
+  tree.find({'_id': req.session.userid}, function(err, doc1){
     responseJSON(res, {
       code: '200',
       list: (doc1 ? doc1 : []),
@@ -119,19 +120,74 @@ router.get('/searchTree', function(req, res) {
     })
   })
 })
-// 设置用户文档树
-router.post('/updateTree', function(req, res) {
-  console.log('设置用户文档树' + req.body.content.children)
+// 设置用户文档树--如果有就修改没有就保存。。。全部用save会报错
+router.post('/updateTree', function (req, res) {
   var typesSingle = {'_id': req.session.userid, 'name': req.session.user, 'content': req.body.content}
-  var newContents = new contents(typesSingle)
-  newContents.save(function (err){
-    responseJSON(res, {
-      code: '200',
-      msg: '修改成功～'
-    })
-  })
+  var newContents = new tree(typesSingle)
+  tree.findOne({'_id': req.session.userid}, '', {}, function (err, list) {
+    if (err) return err
+    if (list) {
+      list.content = req.body.content
+      list.save()
+      responseJSON(res, {
+        code: '200',
+        msg: '修改成功～'
+      })
+    } else {
+      newContents.save(function (err) {
+        console.log('设置用户文档树:' + err)
+        responseJSON(res, {
+          code: '200',
+          msg: '修改成功～'
+        })
+      })
+    }
+  });
 })
 
+// 查询用户文档
+router.get('/getContent', function(req, res) {
+  var id = req.query.id
+  contents.findOne({'_id': id}, '', {}, function (err, list) {
+    if (err) return err
+    console.log(list)
+    if (list) {
+      responseJSON(res, {
+        code: '200',
+        content: list.content
+      })
+    } else {
+      responseJSON(res, {
+        code: '200',
+        content: ''
+      })
+    }
+  })
+})
+// 设置用户文档--如果有就修改没有就保存。。。全部用save会报错
+router.post('/updateContent', function (req, res) {
+  var typesSingle = {'_id': req.body.id, 'content': req.body.content}
+  var newContents = new contents(typesSingle)
+  contents.findOne({'_id': typesSingle._id}, '', {}, function (err, list) {
+    if (err) return err
+    if (list) {
+      list.content = req.body.content
+      list.save()
+      responseJSON(res, {
+        code: '200',
+        msg: '修改成功～'
+      })
+    } else {
+      newContents.save(function (err) {
+        console.log('设置用户文档树:' + err)
+        responseJSON(res, {
+          code: '200',
+          msg: '修改成功～'
+        })
+      })
+    }
+  });
+})
 /* GET users listing. */
 router.get('/example', function(req, res, next) {
   // res.send('respond with a resource');
