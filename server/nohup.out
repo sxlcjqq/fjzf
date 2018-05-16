@@ -1,0 +1,40 @@
+Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-06-15T09:32:30.489Z,
+     originalMaxAge: 2592000000,
+     httpOnly: true },
+  user: 'jqq' }
+查询用户文档树userid:undefined
+查询用户文档树id:p3nmWUqSexpzelSEEOwdCZTBjBu20eb2
+[0mGET /article/searchTree [36m304 [0m20.252 ms - -[0m
+Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-06-15T09:32:30.489Z,
+     originalMaxAge: 2592000000,
+     httpOnly: true },
+  user: 'jqq' }
+查询用户文档树userid:undefined
+查询用户文档树id:p3nmWUqSexpzelSEEOwdCZTBjBu20eb2
+[0mGET /article/searchTree [36m304 [0m5.949 ms - -[0m
+session被销毁.
+[0mGET /article/loginout [36m304 [0m5.425 ms - -[0m
+[0mOPTIONS /article/login [32m200 [0m2.384 ms - 4[0m
+jqq: 注册并登陆成功 Wed May 16 2018 17:42:04 GMT+0800 (CST)
+注册并登陆成功[object Object]
+[0mPOST /article/login [32m200 [0m56.388 ms - 47[0m
+[0mOPTIONS /article/updateTree [32m200 [0m0.789 ms - 4[0m
+设置用户文档树:WriteError({"code":11000,"index":0,"errmsg":"E11000 duplicate key error collection: myList.trees index: name_1 dup key: { : \"jqq\" }","op":{"_id":"5afbfceca88b18217d4ae9c2","name":"jqq","content":[{"id":"53b765d1b16a694e255d0a9d","label":"1","children":[]}],"updateTime":"2018-05-16T09:42:14.180Z","createTime":"2018-05-16T09:42:14.180Z","__v":0}})
+[0mPOST /article/updateTree [32m200 [0m12.751 ms - 38[0m
+Session {
+  cookie: 
+   { path: '/',
+     _expires: 2018-06-15T09:42:04.727Z,
+     originalMaxAge: 2592000000,
+     httpOnly: true },
+  user: 'jqq',
+  userid: '5afbfceca88b18217d4ae9c2' }
+查询用户文档树userid:5afbfceca88b18217d4ae9c2
+查询用户文档树id:NbCwuHJX1GISjwngd7G4MS-iF1Qc3SsD
+[0mGET /article/searchTree [36m304 [0m3.272 ms - -[0m

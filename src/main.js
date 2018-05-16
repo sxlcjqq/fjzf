@@ -15,7 +15,8 @@ Vue.use(mavonEditor) // 编辑器
 Vue.use(ElementUI)
 
 axios.defaults.withCredentials = true // 设置后服务器才能跨域保存session
-axios.defaults.baseURL = 'http://127.0.0.1:3000/'
+// axios.defaults.baseURL = 'http://127.0.0.1:3000/'
+axios.defaults.baseURL = 'http://47.93.98.194:3000/'
 Vue.prototype.$http = axios
 
 // 请求拦截（配置发送请求的信息）

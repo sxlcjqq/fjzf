@@ -1,4 +1,4 @@
-1.本项目涉及 node + express + mongodb + sass + markdown + vue + webpack 多页面打包 + elementui
+﻿1.本项目涉及 node + express + mongodb + sass + markdown + vue + webpack 多页面打包 + elementui
 2.首先，使用vuejs创建一个带webpack的项目
  创建命令： vue init webpack fjzf
 3.进入项目，安装依赖
@@ -74,3 +74,11 @@ show collections
 
 
 登陆验证。每个接口的登陆验证还没做。。。。。
+
+
+
+linux
+1. nohup node bin/www  > app.log 2>&1 &
+用上面的命令在后台启动node服务
+2.service mongod start
+启动mongod服务

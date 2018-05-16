@@ -22,7 +22,7 @@ var article = require('./routes/articles');
 
 //设置跨域访问--start
 app.all('*', function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "http://localhost:8080")
+  res.header("Access-Control-Allow-Origin", "http://47.93.98.194")
   res.header("Access-Control-Allow-Credentials", "true")
   res.header("Access-Control-Allow-Headers", "X-Requested-With,content-type")
   res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS")
