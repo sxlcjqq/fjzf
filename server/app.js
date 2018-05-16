@@ -22,12 +22,14 @@ var article = require('./routes/articles');
 
 //设置跨域访问--start
 app.all('*', function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "http://47.93.98.194")
-  res.header("Access-Control-Allow-Credentials", "true")
-  res.header("Access-Control-Allow-Headers", "X-Requested-With,content-type")
-  res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS")
-  res.header("X-Powered-By",' 3.2.1')
-  res.header("Content-Type", "application/json;charset=utf-8")
+  if(req.headers.origin == 'http://47.93.98.194' || req.headers.origin == 'http://www.shinehun.com' || req.headers.origin == 'http://localhost:8080' || req.headers.origin == 'http://127.0.0.1:8080'){
+    res.header("Access-Control-Allow-Origin", req.headers.origin)
+    res.header("Access-Control-Allow-Credentials", "true")
+    res.header("Access-Control-Allow-Headers", "X-Requested-With,content-type")
+    res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS")
+    res.header("X-Powered-By",' 3.2.1')
+    res.header("Content-Type", "application/json;charset=utf-8")
+  }
   next()
 })
 //设置跨域访问--end
